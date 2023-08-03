@@ -14,17 +14,19 @@ func PostByMonth() *map[string][]models.Post {
 		month := post.CreateAt.Format("2006-01")
 		lines[month] = append(lines[month], post)
 	}
-	
+
 	return &lines
 }
 
-func PostPageByCategory(page int, pageSize int, categoryId int) ([]models.PostMore, int) {
+func PostPageByCategory(page, pageSize, categoryId int) ([]models.PostMore, int) {
 	posts := dao.GetPostPageCategory(page, pageSize, categoryId)
 	total := dao.GetPostCountCategory(categoryId)
 
 	var postMores []models.PostMore
+
 	for _, post := range posts {
 		var pm models.PostMore
+
 		pm.Pid = post.Pid
 		pm.ViewCount = post.ViewCount
 		pm.CategoryId = post.CategoryId
@@ -38,6 +40,7 @@ func PostPageByCategory(page int, pageSize int, categoryId int) ([]models.PostMo
 		pm.Slug = post.Slug
 		pm.CreateAt = utils.Format(post.CreateAt)
 		pm.UserName = dao.GetUserNameById(post.UserId)
+
 		postMores = append(postMores, pm)
 	}
 

@@ -72,18 +72,23 @@ func SpreadDigit(n int) []int {
 	}
 	return r
 }
+
 func IsODD(num int) bool {
 	return num%2 == 0
 }
+
 func Date(layout string) string {
 	return time.Now().Format(layout)
 }
+
 func DateDay(date time.Time) string {
 	return date.Format("2006-01-02 15:04:05")
 }
+
 func GetNextName(strs []string, i int) interface{} {
 	return strs[i+1]
 }
+
 func readHtmlTemplate(htmlFileName []string, viewDir string) ([]TemplatePointer, error) {
 	var htmlTemplate []TemplatePointer
 

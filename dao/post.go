@@ -8,12 +8,14 @@ func GetPostCount() int {
 	_ = row.Scan(&total)
 	return total
 }
+
 func GetPostCountBySlug(slug string) int {
 	row := DB.QueryRow("select count(1) from blog_post where slug=?", slug)
 	var total int
 	_ = row.Scan(&total)
 	return total
 }
+
 func GetPostCountCategory(categoryId int) int {
 	row := DB.QueryRow("select count(1) from blog_post where category_id=?", categoryId)
 	var total int
@@ -112,6 +114,7 @@ func GetPostAll() []models.Post {
 	}
 	return posts
 }
+
 func UpdatePost(post *models.Post) error {
 	_, err := DB.Exec("update  blog_post set title=?,"+
 		"content=?,"+
@@ -134,6 +137,7 @@ func UpdatePost(post *models.Post) error {
 	}
 	return nil
 }
+
 func GetPostById(id int) (*models.Post, error) {
 	row := DB.QueryRow("select * from blog_post where pid=?", id)
 	if row.Err() != nil {
@@ -154,6 +158,7 @@ func GetPostById(id int) (*models.Post, error) {
 		&post.UpdateAt)
 	return post, nil
 }
+
 func SavePost(post *models.Post) error {
 	ret, err := DB.Exec("insert into blog_post (title,content,markdown,category_id,user_id,view_count,type,slug,create_at,update_at) values(?,?,?,?,?,?,?,?,?,?)",
 		post.Title,

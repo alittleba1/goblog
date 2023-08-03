@@ -8,9 +8,10 @@ import (
 	"net/http"
 	"sync"
 )
+
 var Template models.HtmlTemplate
 
-func Load()  {
+func Load() {
 	var err error
 	wg := sync.WaitGroup{}
 	//加载html模板
@@ -25,21 +26,21 @@ func Load()  {
 	wg.Wait()
 }
 
-func Error(w http.ResponseWriter,err error){
+func Error(w http.ResponseWriter, err error) {
 	var ret models.Result
 	ret.Code = -999
 	ret.Error = err.Error()
-	r,_ := json.Marshal(ret)
-	w.Header().Set("Content-Type","application/json")
+	r, _ := json.Marshal(ret)
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(r)
 }
 
-func ReturnSuccess(w http.ResponseWriter,result interface{})  {
+func ReturnSuccess(w http.ResponseWriter, result interface{}) {
 	var ret models.Result
 	ret.Code = 200
 	ret.Data = result
-	w.Header().Set("Content-Type","application/json")
-	r,_ := json.Marshal(ret)
+	w.Header().Set("Content-Type", "application/json")
+	r, _ := json.Marshal(ret)
 	w.Write(r)
 }
 
