@@ -21,6 +21,7 @@ type Claims struct {
 func Award(uid *int) (string, error) {
 	// 过期时间 默认7天
 	expireTime := time.Now().Add(7 * 24 * time.Hour)
+
 	claims := &Claims{
 		Uid: *uid,
 		StandardClaims: gojwt.StandardClaims{
@@ -28,12 +29,14 @@ func Award(uid *int) (string, error) {
 			IssuedAt:  time.Now().Unix(),
 		},
 	}
+
 	// 生成token
 	token := gojwt.NewWithClaims(gojwt.SigningMethodHS256, claims)
 	tokenStr, err := token.SignedString(jwtKey)
 	if err != nil {
 		return "", err
 	}
+
 	return tokenStr, nil
 }
 
@@ -46,5 +49,6 @@ func ParseToken(tokenStr string) (*gojwt.Token, *Claims, error) {
 	if err != nil {
 		return nil, nil, err
 	}
+
 	return token, claims, err
 }

@@ -62,6 +62,7 @@ func InitHtmlTemplate(viewDir string) (HtmlTemplate, error) {
 	htmlTemplate.Login = tp[3]
 	htmlTemplate.Detail = tp[4]
 	htmlTemplate.Writing = tp[5]
+
 	return htmlTemplate, nil
 }
 
@@ -120,5 +121,6 @@ func readHtmlTemplate(htmlFileName []string, viewDir string) ([]TemplatePointer,
 		}
 		htmlTemplate = append(htmlTemplate, TemplatePointer{tp})
 	}
+
 	return htmlTemplate, nil
 }

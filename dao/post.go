@@ -143,7 +143,9 @@ func GetPostById(id int) (*models.Post, error) {
 	if row.Err() != nil {
 		return nil, row.Err()
 	}
+
 	post := new(models.Post)
+
 	_ = row.Scan(
 		&post.Pid,
 		&post.Title,
@@ -156,6 +158,7 @@ func GetPostById(id int) (*models.Post, error) {
 		&post.Slug,
 		&post.CreateAt,
 		&post.UpdateAt)
+
 	return post, nil
 }
 
@@ -174,11 +177,13 @@ func SavePost(post *models.Post) error {
 	if err != nil {
 		return err
 	}
+
 	id, err := ret.LastInsertId()
 	if err != nil {
 		return err
 	}
 	post.Pid = int(id)
+
 	return nil
 }
 
